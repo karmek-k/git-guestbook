@@ -1,6 +1,8 @@
 {
+    "name": "karmek-k/git-guestbook",
+    "description": "Guestbook for your GitHub profile.",
     "type": "project",
-    "license": "proprietary",
+    "license": "AGPL-3.0-only",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
