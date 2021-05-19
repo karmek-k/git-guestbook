@@ -23,4 +23,10 @@ class ConnectController extends AbstractController
     {
         return $this->redirectToRoute('home');
     }
+
+    #[Route('/logout', name: 'connect_logout')]
+    public function logout()
+    {
+        return $this->redirectToRoute('home');
+    }
 }

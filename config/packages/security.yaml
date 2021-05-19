@@ -17,6 +17,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\GithubAuthenticator
+            logout:
+                path: connect_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
