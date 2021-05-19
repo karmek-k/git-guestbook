@@ -68,6 +68,7 @@ class GithubAuthenticator extends SocialAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
+        // TODO: replace this with a flash message
         $message = strtr(
             $exception->getMessageKey(),
             $exception->getMessageData()
