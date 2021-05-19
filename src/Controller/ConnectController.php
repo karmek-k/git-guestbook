@@ -19,16 +19,8 @@ class ConnectController extends AbstractController
     }
 
     #[Route('/connect/github/check', name: 'connect_github_check')]
-    public function connectGithubCheck(ClientRegistry $registry): Response
+    public function connectGithubCheck(): Response
     {
-        $client = $registry->getClient('github');
-
-        try {
-            $user = $client->fetchUser();
-
-            dd($user);
-        } catch (IdentityProviderException $e) {
-            dd($e);
-        }
+        return $this->redirectToRoute('home');
     }
 }
