@@ -9,7 +9,10 @@ use KnpU\OAuth2ClientBundle\Client\Provider\GithubClient;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Provider\GithubResourceOwner;
 use League\OAuth2\Client\Token\AccessToken;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -19,6 +22,7 @@ class GithubAuthenticator extends SocialAuthenticator
     public function __construct(
         private ClientRegistry $registry,
         private EntityManagerInterface $em,
+        private RouterInterface $router,
     ) {}
 
     private function getGithubClient(): GithubClient
@@ -36,7 +40,7 @@ class GithubAuthenticator extends SocialAuthenticator
         return $this->fetchAccessToken($this->getGithubClient());
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): User
     {
         /** @var GithubResourceOwner $githubUser */
         $githubUser = $this->getGithubClient()
@@ -62,18 +66,26 @@ class GithubAuthenticator extends SocialAuthenticator
         return $user;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        // todo
+        $message = strtr(
+            $exception->getMessageKey(),
+            $exception->getMessageData()
+        );
+
+        return new Response($message, Response::HTTP_FORBIDDEN);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?Response
     {
-        // todo
+        return null;
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        // todo
+        return new RedirectResponse(
+            $this->router->generate('connect_github'),
+            Response::HTTP_TEMPORARY_REDIRECT
+        );
     }
 }
