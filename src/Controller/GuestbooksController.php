@@ -33,7 +33,12 @@ class GuestbooksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($guestbook);
+            $em->flush();
+
+            return $this->redirectToRoute('guestbooks_list');
         }
 
         return $this->render('guestbooks/create.html.twig', [
