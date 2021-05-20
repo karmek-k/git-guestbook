@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Guestbooks{% endblock %}
+
+{% block body %}
+<h1>My Guestbooks</h1>
+<ul>
+    {% for guestbook in guestbooks %}
+        <li>{{ guestbook.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

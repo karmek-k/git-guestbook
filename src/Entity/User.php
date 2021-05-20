@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,6 +35,22 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $githubId;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Guestbook::class, mappedBy="owner", orphanRemoval=true)
+     */
+    private $guestbooks;
+
+    /**
+     * @ORM\OneToMany(targetEntity=GuestbookEntry::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $guestbookEntries;
+
+    public function __construct()
+    {
+        $this->guestbooks = new ArrayCollection();
+        $this->guestbookEntries = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,6 +130,66 @@ class User implements UserInterface
     public function setGithubId(int $githubId): self
     {
         $this->githubId = $githubId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Guestbook[]
+     */
+    public function getGuestbooks(): Collection
+    {
+        return $this->guestbooks;
+    }
+
+    public function addGuestbook(Guestbook $guestbook): self
+    {
+        if (!$this->guestbooks->contains($guestbook)) {
+            $this->guestbooks[] = $guestbook;
+            $guestbook->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuestbook(Guestbook $guestbook): self
+    {
+        if ($this->guestbooks->removeElement($guestbook)) {
+            // set the owning side to null (unless already changed)
+            if ($guestbook->getOwner() === $this) {
+                $guestbook->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GuestbookEntry[]
+     */
+    public function getGuestbookEntries(): Collection
+    {
+        return $this->guestbookEntries;
+    }
+
+    public function addGuestbookEntry(GuestbookEntry $guestbookEntry): self
+    {
+        if (!$this->guestbookEntries->contains($guestbookEntry)) {
+            $this->guestbookEntries[] = $guestbookEntry;
+            $guestbookEntry->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuestbookEntry(GuestbookEntry $guestbookEntry): self
+    {
+        if ($this->guestbookEntries->removeElement($guestbookEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($guestbookEntry->getAuthor() === $this) {
+                $guestbookEntry->setAuthor(null);
+            }
+        }
 
         return $this;
     }
