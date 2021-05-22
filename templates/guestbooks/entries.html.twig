@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ guestbook.name }} entries</h1>
+<ul>
+    {% for entry in guestbook.entries %}
+        <li>{{ entry.content }} ~ {{ entry.author }}</li>
+    {% else %}
+        <li>No entries</li>
+    {% endfor %}
+</ul>
+{% endblock %}

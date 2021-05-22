@@ -6,7 +6,11 @@
 <h1>My Guestbooks</h1>
 <ul>
     {% for guestbook in guestbooks %}
-        <li>{{ guestbook.name }}</li>
+        <li>
+            <a href="{{ path('guestbooks_entries', { id: guestbook.id }) }}">
+                {{ guestbook.name }}
+            </a>
+        </li>
     {% endfor %}
 </ul>
 {% endblock %}
