@@ -45,12 +45,4 @@ class GuestbooksController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
-    #[Route('/guestbooks/{id}', name: 'guestbooks_entries')]
-    public function detail(Guestbook $guestbook)
-    {
-        return $this->render('guestbooks/entries.html.twig', [
-            'guestbook' => $guestbook,
-        ]);
-    }
 }
