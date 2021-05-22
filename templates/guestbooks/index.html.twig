@@ -11,6 +11,8 @@
                 {{ guestbook.name }}
             </a>
         </li>
+    {% else %}
+        <li>No guestbooks</li>
     {% endfor %}
 </ul>
 {% endblock %}
