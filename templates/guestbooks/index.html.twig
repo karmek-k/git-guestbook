@@ -4,6 +4,9 @@
 
 {% block body %}
 <h1>My Guestbooks</h1>
+<a href="{{ path('guestbooks_create') }}">
+    Create a new guestbook
+</a>
 <ul>
     {% for guestbook in guestbooks %}
         <li>{{ guestbook.name }}</li>
