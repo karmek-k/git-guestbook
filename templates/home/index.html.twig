@@ -5,10 +5,4 @@
 {% block body %}
 <h1>Hello, world!</h1>
 
-{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-    <a href="{{ path('connect_github') }}">Log in with GitHub</a>
-{% else %}
-    <a href="{{ path('connect_logout') }}">Log out</a>
-{% endif %}
-
 {% endblock %}
