@@ -4,9 +4,16 @@
 
 {% block body %}
 <h1>My Guestbooks</h1>
+<a href="{{ path('guestbooks_create') }}">New guestbook</a>
 <ul>
     {% for guestbook in guestbooks %}
-        <li>{{ guestbook.name }}</li>
+        <li>
+            <a href="{{ path('entries_list', { id: guestbook.id }) }}">
+                {{ guestbook.name }}
+            </a>
+        </li>
+    {% else %}
+        <li>No guestbooks</li>
     {% endfor %}
 </ul>
 {% endblock %}

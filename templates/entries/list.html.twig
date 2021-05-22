@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ guestbook.name }} entries</h1>
+<h2>Total entries: {{ guestbook.entries | length }}</h2>
+
+<ul>
+    {% for entry in guestbook.entries %}
+        <li>{{ entry.content }} ~ {{ entry.author }}</li>
+    {% else %}
+        <li>No entries</li>
+    {% endfor %}
+</ul>
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') and guestbook.owner != app.user %}
+    <a>Add an entry!</a>
+{% endif %}
+{% endblock %}
