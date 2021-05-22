@@ -39,6 +39,11 @@ class Guestbook
     #[Assert\NotBlank]
     private $name;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $confirmEntries;
+
     public function __construct()
     {
         $this->entries = new ArrayCollection();
@@ -99,6 +104,18 @@ class Guestbook
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getConfirmEntries(): ?bool
+    {
+        return $this->confirmEntries;
+    }
+
+    public function setConfirmEntries(bool $confirmEntries): self
+    {
+        $this->confirmEntries = $confirmEntries;
 
         return $this;
     }
