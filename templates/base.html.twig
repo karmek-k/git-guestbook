@@ -14,6 +14,15 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="{{ path('guestbooks_list') }}">List your guestbooks</a>
+                <a href="{{ path('guestbooks_create') }}">New guestbook</a>
+                <a href="{{ path('connect_logout') }}">Log out</a>
+            {% else %}
+                <a href="{{ path('connect_github') }}">Log in with GitHub</a>
+            {% endif %}
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>

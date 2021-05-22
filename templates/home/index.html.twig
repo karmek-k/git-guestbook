@@ -3,12 +3,5 @@
 {% block title %}GitGuestbook{% endblock %}
 
 {% block body %}
-<h1>Hello, world!</h1>
-
-{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-    <a href="{{ path('connect_github') }}">Log in with GitHub</a>
-{% else %}
-    <a href="{{ path('connect_logout') }}">Log out</a>
-{% endif %}
-
+<h1>GitGuestbooks</h1>
 {% endblock %}
