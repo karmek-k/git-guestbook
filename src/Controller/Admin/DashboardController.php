@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Guestbook;
+use App\Entity\GuestbookEntry;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -30,6 +31,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linktoDashboard('Dashboard', 'fa fa-home'),
             MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
             MenuItem::linkToCrud('Guestbooks', 'fa fa-book', Guestbook::class),
+            MenuItem::linkToCrud('Entries', 'fa fa-sticky-note', GuestbookEntry::class),
         ];
     }
 }
