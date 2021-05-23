@@ -19,8 +19,8 @@ class GuestbookEntryCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            TextField::new('guestbook.name', 'Guestbook name'),
-            TextField::new('author.username', 'Author'),
+            TextField::new('guestbook'),
+            TextField::new('author'),
             TextareaField::new('content'),
         ];
     }

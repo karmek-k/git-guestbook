@@ -20,10 +20,7 @@ class GuestbookCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('name'),
-
-            // TODO: the field below generates errors while creating a new guestbook
-            TextField::new('owner.getUsername', 'Owner'),
-            
+            TextField::new('owner'),
             BooleanField::new('confirmEntries'),
         ];
     }
