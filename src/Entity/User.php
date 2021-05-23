@@ -52,6 +52,11 @@ class User implements UserInterface
         $this->guestbookEntries = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getUsername();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

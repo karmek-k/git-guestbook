@@ -34,6 +34,11 @@ class GuestbookEntry
      */
     private $guestbook;
 
+    public function __toString(): string
+    {
+        return $this->getAuthor()->getUsername() . '-' . substr($this->getContent(), 0, 50);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
