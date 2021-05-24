@@ -10,7 +10,9 @@
     {% if guestbook.owner == app.user %}
         <a>Edit this guestbook</a>
     {% else %}
-        <a>Add an entry!</a>
+        <a href="{{ path('entries_create', { guestbook: guestbook.id }) }}">
+            Add an entry!
+        </a>
     {% endif %}
 {% endif %}
 

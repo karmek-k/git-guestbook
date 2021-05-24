@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Guestbook;
+use App\Form\EntryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ class EntriesController extends AbstractController
         ]);
     }
 
-    #[Route('/entries/{guestbook}/create', name: 'entry_create')]
+    #[Route('/entries/{guestbook}/create', name: 'entries_create')]
     public function create(Guestbook $guestbook): Response
     {
         // you cannot add entries to your own guestbook
@@ -30,6 +31,10 @@ class EntriesController extends AbstractController
             ]);
         }
 
-        return new Response('TODO: implement this');
+        $form = $this->createForm(EntryType::class);
+
+        return $this->render('entries/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
