@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Guestbook entries{% endblock %}
+
 {% block body %}
 <h1>{{ guestbook.name }} entries</h1>
 <h2>Total entries: {{ guestbook.entries | length }}</h2>
