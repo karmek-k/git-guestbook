@@ -4,6 +4,14 @@
 <h1>{{ guestbook.name }} entries</h1>
 <h2>Total entries: {{ guestbook.entries | length }}</h2>
 
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if guestbook.owner == app.user %}
+        <a>Edit this guestbook</a>
+    {% else %}
+        <a>Add an entry!</a>
+    {% endif %}
+{% endif %}
+
 <ul>
     {% for entry in guestbook.entries %}
         <li>{{ entry.content }} ~ {{ entry.author }}</li>
@@ -11,8 +19,4 @@
         <li>No entries</li>
     {% endfor %}
 </ul>
-
-{% if is_granted('IS_AUTHENTICATED_FULLY') and guestbook.owner != app.user %}
-    <a>Add an entry!</a>
-{% endif %}
 {% endblock %}
