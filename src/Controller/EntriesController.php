@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EntriesController extends AbstractController
 {
-    #[Route('/entries/{id}', name: 'entries_list')]
+    #[Route('/entries/{guestbook_id}', name: 'entries_list')]
     public function entriesList(Guestbook $guestbook): Response
     {
         return $this->render('entries/list.html.twig', [
