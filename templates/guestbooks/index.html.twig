@@ -8,7 +8,7 @@
 <ul>
     {% for guestbook in guestbooks %}
         <li>
-            <a href="{{ path('entries_list', { guestbook_id: guestbook.id }) }}">
+            <a href="{{ path('entries_list', { guestbook: guestbook.id }) }}">
                 {{ guestbook.name }}
             </a>
         </li>
