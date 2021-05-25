@@ -1,0 +1,6 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <li><a href="{{ path('guestbooks_list') }}">List your guestbooks</a></li>
+    <li><a href="{{ path('connect_logout') }}">Log out</a></li>
+{% else %}
+    <li><a href="{{ path('connect_github') }}">Log in with GitHub</a></li>
+{% endif %}
