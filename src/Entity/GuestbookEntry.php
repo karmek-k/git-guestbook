@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GuestbookEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GuestbookEntryRepository::class)
@@ -26,6 +27,7 @@ class GuestbookEntry
     /**
      * @ORM\Column(type="text")
      */
+    #[Assert\Length(min: 10, max: 100)]
     private $content;
 
     /**
