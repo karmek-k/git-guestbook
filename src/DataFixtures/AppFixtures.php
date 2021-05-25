@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
         $admin
             ->setUsername('karmek-k')
             ->setGithubId(33288445)
-            ->setRoles(['ROLES_ADMIN']);
+            ->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 
         $user = new User();
