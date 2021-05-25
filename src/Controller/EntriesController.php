@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Guestbook;
+use App\Entity\GuestbookEntry;
 use App\Form\EntryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,7 +21,7 @@ class EntriesController extends AbstractController
     }
 
     #[Route('/entries/{guestbook}/create', name: 'entries_create')]
-    public function create(Guestbook $guestbook): Response
+    public function create(Request $request, Guestbook $guestbook): Response
     {
         // you cannot add entries to your own guestbook
         if ($this->getUser() == $guestbook->getOwner()) {
@@ -31,7 +33,24 @@ class EntriesController extends AbstractController
             ]);
         }
 
-        $form = $this->createForm(EntryType::class);
+        $entry = new GuestbookEntry();
+        $entry
+            ->setAuthor($this->getUser())
+            ->setGuestbook($guestbook);
+        
+        $form = $this->createForm(EntryType::class, $entry);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($entry);
+            $em->flush();
+
+            return $this->redirectToRoute('entries_list', [
+                'guestbook' => $guestbook->getId(),
+            ]);
+        }
 
         return $this->render('entries/create.html.twig', [
             'form' => $form->createView(),
