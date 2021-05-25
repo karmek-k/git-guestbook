@@ -3,5 +3,27 @@
 {% block title %}GitGuestbook{% endblock %}
 
 {% block body %}
-<h1>GitGuestbooks</h1>
+<div class="center">
+    <h1>Modern guestbooks for GitHub</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# guestbooks list #}
+        <a
+            href="{{ path('guestbooks_list') }}"
+            class="btn-large waves-effect waves-light"
+        >
+            <i class="material-icons left">book</i>
+            Your guestbook list
+        </a>
+    {% else %}
+        {# login button #}
+        <a
+            href="{{ path('connect_github') }}"
+            class="btn-large waves-effect waves-light"
+        >
+            <i class="material-icons left">login</i>
+            Log in with GitHub
+        </a>
+    {% endif %}
+</div>
 {% endblock %}
