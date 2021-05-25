@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}GitGuestbook{% endblock %}</title>
-        
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -13,14 +13,7 @@
         {% endblock %}
     </head>
     <body>
-        <nav>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a href="{{ path('guestbooks_list') }}">List your guestbooks</a>
-                <a href="{{ path('connect_logout') }}">Log out</a>
-            {% else %}
-                <a href="{{ path('connect_github') }}">Log in with GitHub</a>
-            {% endif %}
-        </nav>
+        {% include '_navbar.html.twig' %}
         {% block body %}{% endblock %}
     </body>
 </html>
