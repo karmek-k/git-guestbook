@@ -4,16 +4,30 @@
 
 {% block body %}
 <h1>My Guestbooks</h1>
-<a href="{{ path('guestbooks_create') }}">New guestbook</a>
-<ul>
-    {% for guestbook in guestbooks %}
-        <li>
-            <a href="{{ path('entries_list', { guestbook: guestbook.id }) }}">
-                {{ guestbook.name }}
-            </a>
-        </li>
-    {% else %}
-        <li>No guestbooks</li>
-    {% endfor %}
-</ul>
+<a class="btn waves-effect waves-light" href="{{ path('guestbooks_create') }}">
+    <i class="material-icons left">add</i>
+    New guestbook
+</a>
+<br />
+
+{% if guestbooks %}
+    <table style="margin-top: 1.5rem;">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for guestbook in guestbooks %}
+                <tr>
+                    <td>
+                        <a href="{{ path('entries_list', { guestbook: guestbook.id }) }}">
+                            {{ guestbook.name }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
 {% endblock %}
