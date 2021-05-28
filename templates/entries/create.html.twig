@@ -13,6 +13,10 @@
         {{ form_label(form.content) }}
     </div>
 
+    <p>
+        {{ form_row(form.captcha) }}
+    </p>
+
     {{ form_row(form.submit, { 'attr': { 'class': 'btn waves-effect waves-light' } })}}
 {{ form_end(form) }}
 {% endblock %}
