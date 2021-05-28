@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
         $adminGuestbookNoConfirmation = new Guestbook();
         $adminGuestbookNoConfirmation
             ->setOwner($admin)
-            ->setName('Admin\'s very own guestbook with no entry confirmation')
+            ->setName('no entry confirmation')
             ->setConfirmEntries(false);
         $manager->persist($adminGuestbookNoConfirmation);
 

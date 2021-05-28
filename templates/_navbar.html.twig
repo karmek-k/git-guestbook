@@ -1,0 +1,16 @@
+<nav>
+    <div class="nav-wrapper container">
+        <a class="brand-logo" href="{{ path('home') }}">GitGuestbook</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+        </a>
+
+        <ul class="right hide-on-med-and-down">
+            {% include '_navbar_items.html.twig' %}
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    {% include '_navbar_items.html.twig' %}
+</ul>

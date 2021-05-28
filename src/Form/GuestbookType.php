@@ -16,7 +16,10 @@ class GuestbookType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('confirmEntries', CheckboxType::class)
+            ->add('confirmEntries', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Do entries require confirmation?',
+            ])
             ->add('submit', SubmitType::class);
     }
 

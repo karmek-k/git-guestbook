@@ -3,24 +3,33 @@
 {% block title %}Guestbook entries{% endblock %}
 
 {% block body %}
-<h1>{{ guestbook.name }} entries</h1>
-<h2>Total entries: {{ guestbook.entries | length }}</h2>
+<div class="center-align">
+    <h1>{{ guestbook.name }}</h1>
+    <h3>Total entries: {{ guestbook.entries | length }}</h3>
 
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {% if guestbook.owner == app.user %}
-        <a>Edit this guestbook</a>
-    {% else %}
-        <a href="{{ path('entries_create', { guestbook: guestbook.id }) }}">
-            Add an entry!
-        </a>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if guestbook.owner == app.user %}
+            <a class="btn waves-effect waves-light" href="#">
+                <i class="material-icons left">edit</i>
+                Edit this guestbook
+            </a>
+        {% else %}
+            <a
+                class="btn waves-effect waves-light"
+                href="{{ path('entries_create', { guestbook: guestbook.id }) }}"
+            >
+                <i class="material-icons left">add</i>
+                Add an entry!
+            </a>
+        {% endif %}
     {% endif %}
-{% endif %}
 
-<ul>
-    {% for entry in guestbook.entries %}
-        <li>{{ entry.content }} ~ {{ entry.author }}</li>
-    {% else %}
-        <li>No entries</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for entry in guestbook.entries %}
+            <li>{{ entry.content }} ~ {{ entry.author }}</li>
+        {% else %}
+            <li>No entries</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

@@ -3,25 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}GitGuestbook{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {# icons #}
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        <nav>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a href="{{ path('guestbooks_list') }}">List your guestbooks</a>
-                <a href="{{ path('connect_logout') }}">Log out</a>
-            {% else %}
-                <a href="{{ path('connect_github') }}">Log in with GitHub</a>
-            {% endif %}
-        </nav>
-        {% block body %}{% endblock %}
+        {% include '_navbar.html.twig' %}
+
+        <main class="container">
+            {% block body %}{% endblock %}
+        </main>
+
+        {% include '_footer.html.twig' %}
     </body>
 </html>
