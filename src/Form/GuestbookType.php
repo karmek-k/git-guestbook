@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Guestbook;
+use Beelab\Recaptcha2Bundle\Form\Type\RecaptchaType;
+use Beelab\Recaptcha2Bundle\Validator\Constraints\Recaptcha2;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,6 +21,9 @@ class GuestbookType extends AbstractType
             ->add('confirmEntries', CheckboxType::class, [
                 'required' => false,
                 'label' => 'Do entries require confirmation?',
+            ])
+            ->add('captcha', RecaptchaType::class, [
+                'constraints' => new Recaptcha2(),
             ])
             ->add('submit', SubmitType::class);
     }
