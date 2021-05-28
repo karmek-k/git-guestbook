@@ -3,5 +3,14 @@
 {% block title %}Create an Entry{% endblock %}
 
 {% block body %}
-{{ form(form) }}
+{{ form_start(form) }}
+    {{ form_errors(form.content) }}
+
+    <div class="input-field">
+        {{ form_widget(form.content, { 'attr': { 'class': 'materialize-textarea' } }) }}
+        {{ form_label(form.content) }}
+    </div>
+
+    {{ form_row(form.submit, { 'attr': { 'class': 'btn waves-effect waves-light' } })}}
+{{ form_end(form) }}
 {% endblock %}
