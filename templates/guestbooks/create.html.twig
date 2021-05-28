@@ -3,5 +3,21 @@
 {% block title %}Create a Guestbook{% endblock %}
 
 {% block body %}
-{{ form(form) }}
+{{ form_start(form) }}
+    {{ form_errors(form.name) }}
+
+    <p class="input-field">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    </p>
+
+    <p>
+        <label>
+            {{ form_widget(form.confirmEntries, { 'attr': { 'class': 'filled-in' } }) }}
+            <span>{{ form_label(form.confirmEntries) }}</span>
+        </label>
+    </p>
+
+    {{ form_row(form.submit, { 'attr': { 'class': 'btn waves-effect waves-light' } }) }}
+{{ form_end(form) }}
 {% endblock %}
