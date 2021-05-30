@@ -17,29 +17,29 @@ class HomeControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Modern guestbooks for GitHub');
     }
 
-    // public function testAccessAsAnonymous(): void
-    // {
-    //     $client = static::createClient();
+    public function testAccessAsAnonymous(): void
+    {
+        $client = static::createClient();
 
-    //     $client->request('GET', '/');
+        $client->request('GET', '/');
 
-    //     $this->assertResponseIsSuccessful();
-    //     $this->assertSelectorTextContains('a', 'Log in with GitHub');
-    // }
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('.btn-large', 'Log in with GitHub');
+    }
 
-    // public function testAccessAsLoggedIn(): void
-    // {
-    //     $client = static::createClient();
+    public function testAccessAsLoggedIn(): void
+    {
+        $client = static::createClient();
 
-    //     /** @var UserRepository $userRepo */
-    //     $userRepo = static::$container->get(UserRepository::class);
-    //     $user = $userRepo->findOneBy(['username' => 'user']);
-    //     $this->assertNotNull($user);
+        /** @var UserRepository $userRepo */
+        $userRepo = static::$container->get(UserRepository::class);
+        $user = $userRepo->findOneBy(['username' => 'user']);
+        $this->assertNotNull($user);
 
-    //     $client->request('GET', '/');
-    //     $client->loginUser($user);
+        $client->loginUser($user);
+        $client->request('GET', '/');
 
-    //     $this->assertResponseIsSuccessful();
-    //     $this->assertSelectorTextContains('a', 'Log out');
-    // }
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('.btn-large', 'Your guestbook list');
+    }
 }
