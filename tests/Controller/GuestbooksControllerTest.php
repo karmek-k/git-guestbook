@@ -27,11 +27,41 @@ class GuestbooksControllerTest extends WebTestCase
 
         $client->loginUser($user);
         $crawler = $client->request('GET', '/guestbooks');
-        // minus the header row
-        $tableRowCount = $crawler->filter('tr')->count() - 1;
+        $tableRowLinks = $crawler->filter('tr a');
     
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'My Guestbooks');
-        $this->assertEquals($guestbookCount, $tableRowCount);
+        $this->assertCount($guestbookCount, $tableRowLinks);
+    }
+
+    public function testCreatingGuestbook(): void
+    {
+        $client = static::createClient();
+
+        /** @var UserRepository $userRepo */
+        $userRepo = static::$container->get(UserRepository::class);
+        $user = $userRepo->findOneBy(['username' => 'user']);
+
+        $client->loginUser($user);
+
+        // guestbook list
+        $crawler = $client->request('GET', '/guestbooks');
+        $prevGuestbookCount = $crawler->filter('tr a')->count();
+        $link = $crawler->selectLink('New guestbook')->link();
+
+        // guestbook form
+        $crawler = $client->click($link);
+        $form = $crawler->selectButton('Submit')->form();
+        $crawler = $client->submit($form, [
+            'guestbook[name]' => 'test guestbook',
+        ]);
+        $this->assertResponseRedirects('/guestbooks');
+
+        // guestbook list again
+        $crawler = $client->followRedirect();
+        $newGuestbookCount = $crawler->filter('tr a')->count();
+        
+        $this->assertEquals($prevGuestbookCount + 1, $newGuestbookCount);
+        $this->assertSelectorTextContains('h1', 'My Guestbooks');
     }
 }
