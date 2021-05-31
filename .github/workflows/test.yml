@@ -43,8 +43,7 @@ jobs:
       env: 
         DATABASE_URL: postgresql://test_user:test_password@localhost:${{ job.services.postgres.ports[5432] }}/git_guestbook_test?serverVersion=13&charset=utf8
       run: >
-        bash -c "php bin/console doctrine:database:create -n
-        && php bin/console doctrine:migrations:migrate -n
+        bash -c "php bin/console doctrine:migrations:migrate -n
         && php bin/console doctrine:fixtures:load -n"
 
     - name: Run tests
