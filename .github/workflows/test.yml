@@ -8,8 +8,18 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:13
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: git_guestbook_test
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -28,20 +38,16 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-      
-    - name: Setup PostgreSQL
-      uses: Harmon758/postgresql-action@v1.0.0
-      with:
-        postgresql version: '13'
-        postgresql db: git_guestbook_test
-        postgresql user: test_user
-        postgresql password: test_password
     
-    - name: Setup app database
+    - name: Setup the app database
+      env: 
+        - DATABASE_URL: postgresql://test_user:test_password@db:${{ job.services.postgres.ports[5432] }}/git_guestbook_test?serverVersion=13&charset=utf8
       run: >
         bash -c "php bin/console doctrine:database:create -n
         && php bin/console doctrine:migrations:migrate -n
         && php bin/console doctrine:fixtures:load -n"
 
     - name: Run tests
+      env: 
+        - DATABASE_URL: postgresql://test_user:test_password@db:${{ job.services.postgres.ports[5432] }}/git_guestbook_test?serverVersion=13&charset=utf8
       run: php bin/phpunit
