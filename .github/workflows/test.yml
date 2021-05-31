@@ -36,7 +36,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: Install Symfony dependencies
       run: composer install --prefer-dist --no-progress
     
     - name: Setup the app database
@@ -45,6 +45,17 @@ jobs:
       run: >
         bash -c "php bin/console doctrine:migrations:migrate -n
         && php bin/console doctrine:fixtures:load -n"
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    
+    - name: Install Node.js dependencies
+      run: yarn
+    
+    - name: Build static assets
+      run: yarn build
 
     - name: Run tests
       env: 
