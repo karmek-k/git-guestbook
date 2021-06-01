@@ -23,7 +23,7 @@ class ConnectController extends AbstractController
     {
         $this->addFlash('success', 'You have been logged in');
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('guestbooks_list');
     }
 
     #[Route('/logout', name: 'connect_logout')]
