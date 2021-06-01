@@ -21,7 +21,9 @@ class ConnectController extends AbstractController
     #[Route('/connect/github/check', name: 'connect_github_check')]
     public function connectGithubCheck(): Response
     {
-        return $this->redirectToRoute('home');
+        $this->addFlash('success', 'You have been logged in');
+
+        return $this->redirectToRoute('guestbooks_list');
     }
 
     #[Route('/logout', name: 'connect_logout')]

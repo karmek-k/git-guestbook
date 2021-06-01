@@ -38,6 +38,8 @@ class GuestbooksController extends AbstractController
             $em->persist($guestbook);
             $em->flush();
 
+            $this->addFlash('success', 'Guestbook was created successfully');
+
             return $this->redirectToRoute('guestbooks_list');
         }
 
