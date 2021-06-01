@@ -1,0 +1,9 @@
+<ul>
+    {% for label, msgs in app.flashes %}
+        {% for msg in msgs %}
+            <li>
+                <b>{{ label | capitalize }}:</b> {{ msg }}
+            </li>
+        {% endfor %}
+    {% endfor %}
+</ul>

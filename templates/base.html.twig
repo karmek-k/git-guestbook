@@ -22,9 +22,17 @@
     <body>
         {% include '_navbar.html.twig' %}
 
-        <main class="container">
-            {% block body %}{% endblock %}
-        </main>
+        <div class="container">        
+            {# Flash messages #}
+            <aside>
+                {% include '_flashes.html.twig' %}
+            </aside>
+            
+            {# Document body #}
+            <main>
+                {% block body %}{% endblock %}
+            </main>
+        </div>
 
         {% include '_footer.html.twig' %}
 
