@@ -25,8 +25,7 @@ class EntriesController extends AbstractController
     {
         // you cannot add entries to your own guestbook
         if ($this->getUser() == $guestbook->getOwner()) {
-            // TODO: create a flash message
-            // $this->addFlash('error', 'You cannot add entries to your own guestbook')
+            $this->addFlash('error', 'You cannot add entries to your own guestbook');
         
             return $this->redirectToRoute('entries_list', [
                 'guestbook' => $guestbook->getId()
@@ -46,6 +45,8 @@ class EntriesController extends AbstractController
 
             $em->persist($entry);
             $em->flush();
+
+            $this->addFlash('success', 'Entry was added successfully');
 
             return $this->redirectToRoute('entries_list', [
                 'guestbook' => $guestbook->getId(),
