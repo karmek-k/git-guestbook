@@ -34,7 +34,8 @@ class GuestbookImageGenerator
         $image->draw()->rectangle(
             $overlayStart,
             $overlayEnd,
-            $image->palette()->color($hexColor, 100)
+            $image->palette()->color($hexColor, 50),
+            fill: true,
         );
 
         // TODO: make it return a HttpFoundation Response instead
