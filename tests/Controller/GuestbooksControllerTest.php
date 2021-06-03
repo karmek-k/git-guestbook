@@ -54,6 +54,7 @@ class GuestbooksControllerTest extends WebTestCase
         $form = $crawler->selectButton('Submit')->form();
         $crawler = $client->submit($form, [
             'guestbook[name]' => 'test guestbook',
+            'guestbook[color]' => 'abc',
         ]);
         $this->assertResponseRedirects('/guestbooks');
 
