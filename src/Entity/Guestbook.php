@@ -44,6 +44,12 @@ class Guestbook
      */
     private $confirmEntries;
 
+    /**
+     * @ORM\Column(type="string", length=6)
+     */
+    #[Assert\Regex('/^([A-Fa-f0-9]{3}|A-Fa-f0-9]{6})$/')]
+    private $color;
+
     public function __construct()
     {
         $this->entries = new ArrayCollection();
@@ -121,6 +127,18 @@ class Guestbook
     public function setConfirmEntries(bool $confirmEntries): self
     {
         $this->confirmEntries = $confirmEntries;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

@@ -27,6 +27,7 @@ class GuestbooksController extends AbstractController
     public function create(Request $request): Response
     {
         $guestbook = new Guestbook();
+        $guestbook->setColor('ffffff');
         $guestbook->setOwner($this->getUser());
 
         $form = $this->createForm(GuestbookType::class, $guestbook);

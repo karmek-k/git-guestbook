@@ -7,10 +7,15 @@
 
 {{ form_start(form) }}
     {{ form_errors(form.name) }}
-
     <p class="input-field">
         {{ form_label(form.name) }}
         {{ form_widget(form.name) }}
+    </p>
+
+    {{ form_errors(form.color) }}
+    <p class="input-field">
+        {{ form_label(form.color) }}
+        {{ form_widget(form.color) }}
     </p>
 
     <p>
