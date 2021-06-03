@@ -13,7 +13,7 @@ class ImageController extends AbstractController
     #[Route('/image/{guestbook}', name: 'image_show')]
     public function index(Guestbook $guestbook, GuestbookImageGenerator $gen): Response
     {
-        $gen->generate('000');
+        $gen->generate($guestbook->getColor());
 
         return new Response('hello');
     }
