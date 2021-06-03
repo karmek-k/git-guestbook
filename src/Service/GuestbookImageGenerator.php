@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Imagine\Gd\Image;
 use Imagine\Gd\Imagine;
 use Imagine\Image\Point;
 use Symfony\Component\Asset\Package;
@@ -18,7 +19,7 @@ class GuestbookImageGenerator
         $this->package = new Package(new EmptyVersionStrategy());
     }
 
-    public function generate(string $hexColor): void
+    public function generate(string $hexColor): Image
     {
         $templateUrl = $this->package
             ->getUrl('images/guestbook_template.jpg');
@@ -38,7 +39,12 @@ class GuestbookImageGenerator
             fill: true,
         );
 
+        return $image;
+    }
+
+    public function show(Image $image, string $format = 'jpg'): void
+    {
         // TODO: make it return a HttpFoundation Response instead
-        $image->show('jpg');
+        $this->image->show($format);
     }
 }
