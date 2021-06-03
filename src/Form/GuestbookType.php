@@ -18,6 +18,13 @@ class GuestbookType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('color', TextType::class, [
+                'label' => 'Guestbook widget color (hex value)',
+                'attr' => [
+                    'maxlength' => 6,
+                    'minlength' => 3,
+                ],
+            ])
             ->add('confirmEntries', CheckboxType::class, [
                 'required' => false,
                 'label' => 'Do entries require confirmation?',
