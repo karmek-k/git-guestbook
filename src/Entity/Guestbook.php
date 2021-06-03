@@ -47,7 +47,7 @@ class Guestbook
     /**
      * @ORM\Column(type="string", length=6)
      */
-    #[Assert\Regex('([A-Fa-f0-9]{3}|A-Fa-f0-9]{6})')]
+    #[Assert\Regex('/^([A-Fa-f0-9]{3}|A-Fa-f0-9]{6})$/')]
     private $color;
 
     public function __construct()
