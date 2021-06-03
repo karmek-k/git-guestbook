@@ -35,6 +35,7 @@ class AppFixtures extends Fixture
         $adminGuestbook
             ->setOwner($admin)
             ->setName('Admin\'s very own guestbook')
+            ->setColor('fFf')
             ->setConfirmEntries(true);
         $manager->persist($adminGuestbook);
 
@@ -42,6 +43,7 @@ class AppFixtures extends Fixture
         $adminGuestbookNoConfirmation
             ->setOwner($admin)
             ->setName('no entry confirmation')
+            ->setColor('b5fcc3')
             ->setConfirmEntries(false);
         $manager->persist($adminGuestbookNoConfirmation);
 
@@ -49,6 +51,7 @@ class AppFixtures extends Fixture
         $userGuestbook
             ->setOwner($user)
             ->setName('Test guestbook 123')
+            ->setColor('c3b5fc')
             ->setConfirmEntries(false);
         $manager->persist($userGuestbook);
 
