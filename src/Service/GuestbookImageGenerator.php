@@ -4,19 +4,25 @@ namespace App\Service;
 
 use Imagine\Gd\Imagine;
 use Imagine\Image\Point;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 class GuestbookImageGenerator
 {
     private Imagine $imagine;
+    private Package $package;
 
     public function __construct()
     {
         $this->imagine = new Imagine();
+        $this->package = new Package(new EmptyVersionStrategy());
     }
 
-    public function generate(string $template, string $hexColor): void
+    public function generate(string $hexColor): void
     {
-        $image = $this->imagine->open($template);
+        $templateUrl = $this->package
+            ->getUrl('images/guestbook_template.jpg');
+        $image = $this->imagine->open($templateUrl);
 
         $overlaySize = $image->getSize();
         $overlayStart = new Point(0, 0);
@@ -28,7 +34,7 @@ class GuestbookImageGenerator
         $image->draw()->rectangle(
             $overlayStart,
             $overlayEnd,
-            $image->palette()->color($hexColor, 10)
+            $image->palette()->color($hexColor, 100)
         );
 
         // TODO: make it return a HttpFoundation Response instead
