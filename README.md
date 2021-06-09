@@ -7,7 +7,8 @@ Work in progress!
 ## Installation
 
 GitGuestbook requires PHP 8 or greater.
-You'll also need Composer and a database (I used PostgreSQL).
+You'll also need Composer, Node.js with Yarn and a database (I used PostgreSQL).
+
 
 1. Install dependencies
 
@@ -30,7 +31,19 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
-4. Now you can run the built-in PHP web server
+4. Install Node.js dependencies and build static assets:
+
+```bash
+yarn install
+
+# for development
+yarn watch
+
+# for production
+yarn build
+```
+
+5. Now you can run the built-in PHP web server
 
 `php -S localhost:8000 -t public`
 
